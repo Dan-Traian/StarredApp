@@ -11,7 +11,7 @@ type SidebarItemProps = {
 
 export default function SidebarItem({ href, label, icon: Icon }: SidebarItemProps) {
   return (
-    <Link href={href} className="flex items-center gap-2 px-3 py-1 rounded-md bg-transparent text-current hover:bg-white">
+    <Link href={href} className="flex items-center gap-2 px-3 py-1 rounded-md bg-transparent text-current hover:bg-white fade-sm">
       {Icon ? <Icon size={18} weight="regular" /> : null}
       <span>{label}</span>
     </Link>

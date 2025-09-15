@@ -1,8 +1,19 @@
+"use client";
+
+import PageTemplate from "@/Components/PageTemplate/PageTemplate";
+import { Star } from "@phosphor-icons/react";
+
 export default function Page() {
   return (
-    <div>
-      <h1>Starred AI</h1>
-    </div>
+    <PageTemplate
+      title="Starred AI"
+      icon={Star}
+      showDescription
+      description="Your starred items and insights."
+      wipMode
+    >
+      {/* page content here */}
+    </PageTemplate>
   );
 }
 

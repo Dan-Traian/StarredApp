@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import PageSidebar from "@/Components/PageSidebar/PageSidebar";
+import PageTransition from "./PageTransition";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,7 +21,7 @@ export default function RootLayout({
           id="content"
           className="w-full h-full bg-white rounded-sm shadow-md p-4"
         >
-          {children}
+          <PageTransition>{children}</PageTransition>
         </main>
       </body>
     </html>
