@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
+import Flyout from "./Flyout";
 import { CaretDown } from "@phosphor-icons/react";
 
 export interface SelectInputProps
@@ -98,44 +98,8 @@ export const SelectInput = React.forwardRef<HTMLDivElement, SelectInputProps>(
 
     const containerRef = React.useRef<HTMLDivElement | null>(null);
     const triggerRef = React.useRef<HTMLButtonElement | null>(null);
-    const [menuStyle, setMenuStyle] = React.useState<React.CSSProperties>({});
 
-    const updateMenuPosition = React.useCallback(() => {
-      const trigger = triggerRef.current;
-      if (!trigger) return;
-      const rect = trigger.getBoundingClientRect();
-      const top = rect.top + rect.height;
-      const left = rect.left;
-      const minWidth = rect.width;
-      const maxHeight = Math.max(160, window.innerHeight - top - 8);
-      setMenuStyle({
-        position: "fixed",
-        top,
-        left,
-        minWidth,
-        maxHeight,
-      });
-    }, []);
-
-    function openWithPositioning() {
-      // Compute immediately so first paint uses correct fixed coordinates
-      updateMenuPosition();
-      // Schedule another pass next frame in case layout shifts
-      requestAnimationFrame(() => updateMenuPosition());
-    }
-
-    React.useLayoutEffect(() => {
-      if (!isOpen) return;
-      updateMenuPosition();
-      const onScroll = () => updateMenuPosition();
-      const onResize = () => updateMenuPosition();
-      window.addEventListener("scroll", onScroll, true);
-      window.addEventListener("resize", onResize);
-      return () => {
-        window.removeEventListener("scroll", onScroll, true);
-        window.removeEventListener("resize", onResize);
-      };
-    }, [isOpen, updateMenuPosition]);
+    // positioning handled by Flyout
 
     return (
       <div ref={(node) => { containerRef.current = node; if (typeof ref === "function") ref(node); else if (ref) (ref as React.MutableRefObject<HTMLDivElement | null>).current = node; }} className={cn("relative", className)}>
@@ -148,13 +112,7 @@ export const SelectInput = React.forwardRef<HTMLDivElement, SelectInputProps>(
           disabled={disabled}
           aria-haspopup="listbox"
           aria-expanded={isOpen}
-          onClick={() =>
-            setIsOpen((prev) => {
-              const next = !prev;
-              if (next) openWithPositioning();
-              return next;
-            })
-          }
+          onClick={() => setIsOpen((prev) => !prev)}
           ref={triggerRef}
           className={cn(
             "flex h-9 w-full items-center justify-between rounded-xl border bg-white px-3 text-left text-sm text-gray-800 transition focus-visible:outline-none focus-visible:ring-1 disabled:cursor-not-allowed disabled:opacity-50",
@@ -167,37 +125,32 @@ export const SelectInput = React.forwardRef<HTMLDivElement, SelectInputProps>(
           </span>
           <CaretDown size={16} className="ml-2 text-gray-500" />
         </button>
-
-        {isOpen
-          ? ReactDOM.createPortal(
-              <div
-                role="listbox"
-                aria-labelledby={id}
-                style={menuStyle}
-                className="z-50 max-h-60 overflow-auto rounded-md border border-gray-200 bg-white py-1 shadow-md"
-              >
-                {options.map((opt, idx) => (
-                  <button
-                    key={`${opt.value}::${idx}`}
-                    role="option"
-                    aria-selected={((value as string) ?? internalValue) === opt.value}
-                    disabled={opt.disabled}
-                    onClick={() => handleSelect(opt.value)}
-                    className={cn(
-                      "flex w-full cursor-pointer items-center px-3 py-2 text-left text-sm",
-                      ((value as string) ?? internalValue) === opt.value
-                        ? "bg-gray-100 text-gray-900"
-                        : "text-gray-800 hover:bg-gray-50",
-                      opt.disabled && "cursor-not-allowed opacity-60"
-                    )}
-                  >
-                    {opt.label}
-                  </button>
-                ))}
-              </div>,
-              document.body
-            )
-          : null}
+        <Flyout
+          open={isOpen}
+          onOpenChange={setIsOpen}
+          anchorRef={triggerRef as unknown as React.RefObject<HTMLElement>}
+          placement="bottom-start"
+          className="max-h-60 overflow-auto rounded-md border border-gray-200 bg-white py-1 shadow-md"
+        >
+          {options.map((opt, idx) => (
+            <button
+              key={`${opt.value}::${idx}`}
+              role="option"
+              aria-selected={((value as string) ?? internalValue) === opt.value}
+              disabled={opt.disabled}
+              onClick={() => handleSelect(opt.value)}
+              className={cn(
+                "flex w-full cursor-pointer items-center px-3 py-2 text-left text-sm",
+                ((value as string) ?? internalValue) === opt.value
+                  ? "bg-gray-100 text-gray-900"
+                  : "text-gray-800 hover:bg-gray-50",
+                opt.disabled && "cursor-not-allowed opacity-60"
+              )}
+            >
+              {opt.label}
+            </button>
+          ))}
+        </Flyout>
       </div>
     );
   }

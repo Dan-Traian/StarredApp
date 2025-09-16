@@ -61,7 +61,7 @@ export default function PageTemplate({
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="w-full overflow-hidden rounded-md bg-gray-100 border border-gray-200"
+            className="w-full overflow-hidden rounded-xl bg-gray-100"
             aria-label="Filters"
           >
             <div className="flex items-stretch gap-3 p-4">
