@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "./globals.scss";
 import PageSidebar from "@/Components/PageSidebar/PageSidebar";
 import PageTransition from "./PageTransition";
 
@@ -15,11 +15,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="w-full bg-gray-10 h-full flex gap-4 p-2">
+      <body className="w-full bg-gray-10 h-full flex gap-2 p-2">
         <PageSidebar></PageSidebar>
         <main
           id="content"
-          className="w-full h-full bg-white rounded-sm shadow-md p-4"
+          className="w-full h-full bg-white rounded-xl shadow-md p-4"
         >
           <PageTransition>{children}</PageTransition>
         </main>

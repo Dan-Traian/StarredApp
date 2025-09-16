@@ -2,7 +2,8 @@
 
 import CompanyContextPicker from "./CompanyContextPicker";
 import SidebarItem from "./SidebarItem";
-import { House, User, Users, ChartBar, CaretDownIcon, GearIcon, QuestionMarkIcon, SparkleIcon } from "@phosphor-icons/react";
+import { House, GearIcon, SparkleIcon, AlignTopIcon, ChartLineIcon, UserCircleCheckIcon, QuestionIcon } from "@phosphor-icons/react";
+import UserContextPicker from "./UserContextPicker";
 
 
 export default function PageSidebar() {
@@ -18,30 +19,22 @@ export default function PageSidebar() {
 
       <div className="sidebar-group flex flex-col gap-2 mt-4">
         <p className="w-full ml-10 text-md text-gray-400 font-light">Collect feedback</p>
-        <SidebarItem href="/data-collection/candidate-journey" label="Candidate Journey" icon={Users} />
-        <SidebarItem href="/data-collection/recruiter-journey" label="Recruiter Journey" icon={User} />
+        <SidebarItem href="/data-collection/candidate-journey" label="Candidate Journey" icon={AlignTopIcon} />
+        <SidebarItem href="/data-collection/recruiter-journey" label="Recruiter Journey" icon={AlignTopIcon} />
       </div >
-
 
       <div className="sidebar-group flex flex-col gap-2 mt-4">
         <p className="w-full ml-10 text-md text-gray-400 font-light">Collect feedback</p>
-        <SidebarItem href="/data-insights/candidate-experience" label="Candidate Experience" icon={ChartBar} />
-      <SidebarItem href="/data-insights/quality-of-hire" label="Quality Of Hire" icon={ChartBar} />
+        <SidebarItem href="/data-insights/candidate-experience" label="Candidate Experience" icon={ChartLineIcon} />
+      <SidebarItem href="/data-insights/quality-of-hire" label="Quality Of Hire" icon={UserCircleCheckIcon} />
       </div >
      
-      -
-
-      
       <div className="my-auto"></div>
 
-      <SidebarItem href="/data-insights/quality-of-hire" label="Help center" icon={QuestionMarkIcon} />
-      <SidebarItem href="/data-insights/quality-of-hire" label="Settings" icon={GearIcon} />
+      <SidebarItem href="/help-center" label="Help center" icon={QuestionIcon} />
+      <SidebarItem href="/settings" label="Settings" icon={GearIcon} />
 
-      <div className="user-context-picker flex items center gap-1 p-2 bg-white rounded-md">
-        <img src="" alt="" />
-        <p className="w-full text-ellipsis">TrustPilot</p>
-        <CaretDownIcon size={18}></CaretDownIcon>
-      </div>
+      <UserContextPicker></UserContextPicker>
     </aside>
   );
 }
