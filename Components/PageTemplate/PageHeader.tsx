@@ -6,19 +6,19 @@ type PageHeaderProps = {
   title: string;
   showDescription?: boolean;
   description?: string;
+  showFilters?: boolean;
   onToggleFilters?: () => void;
   isFiltersOpen?: boolean;
 };
 
 export default function PageHeader({
-
   icon: Icon,
   title,
   showDescription = false,
   description,
+  showFilters = false,
   onToggleFilters,
   isFiltersOpen = false,
-
 }: PageHeaderProps) {
   return (
     <div className="header-content w-full flex items-start gap-4 p-3 sticky">
@@ -35,14 +35,16 @@ export default function PageHeader({
         ) : null}
       </div>
 
-      <Button
-        type="button"
-        onClick={onToggleFilters}
-        aria-expanded={isFiltersOpen}
-        iconRight={<FunnelIcon size={16} />}
-      >
-        Show filters
-      </Button>
+      {showFilters && (
+        <Button
+          type="button"
+          onClick={onToggleFilters}
+          aria-expanded={isFiltersOpen}
+          iconRight={<FunnelIcon size={16} />}
+        >
+          Show filters
+        </Button>
+      )}
     </div>
   );
 }

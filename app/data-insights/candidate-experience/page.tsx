@@ -15,6 +15,7 @@ export default function Page() {
       icon={ChartBar}
       showDescription
       description="Analyze candidate satisfaction and experience metrics throughout the hiring process."
+      showFilters
     >
       <div className="section flex gap-2 w-full">
         <KPICard

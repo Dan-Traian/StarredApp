@@ -10,6 +10,7 @@ type PageTemplateProps = {
   icon?: React.ElementType;
   showDescription?: boolean;
   description?: string;
+  showFilters?: boolean;
   wipMode?: boolean;
   children?: React.ReactNode;
 };
@@ -34,6 +35,7 @@ export default function PageTemplate({
   icon,
   showDescription = false,
   description,
+  showFilters = false,
   wipMode = false,
   children,
 }: PageTemplateProps) {
@@ -50,11 +52,12 @@ export default function PageTemplate({
         title={title}
         showDescription={showDescription}
         description={description}
+        showFilters={showFilters}
         onToggleFilters={handleToggleFilters}
         isFiltersOpen={isFiltersOpen}
       />
       <AnimatePresence initial={false}>
-        {isFiltersOpen ? (
+        {showFilters && isFiltersOpen ? (
           <motion.section
             key="filters"
             initial={{ height: 0, opacity: 0 }}
