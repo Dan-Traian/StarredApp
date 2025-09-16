@@ -11,7 +11,7 @@ type PageTemplateProps = {
 
 function WipPlaceholder() {
     return (
-        <div className="w-full  h-full flex flex-col items-center justify-center py-10rounded-sm border border-gray-200 bg-gray-50 p-4 text-gray-600">
+        <div className="w-full h-full flex flex-col items-center justify-center py-10rounded-sm border border-gray-200 bg-gray-50 p-4 text-gray-600">
             <div className="flex items-center gap-2">
                 <span className="font-semibold">Work in progress</span>
             </div>
@@ -22,11 +22,11 @@ function WipPlaceholder() {
 
 export default function PageTemplate({ title, icon, showDescription = false, description, wipMode = false, children }: PageTemplateProps) {
     return (
-     <div className="page-header w-full">
+     <div className="page w-full h-full flex flex-col">
         <PageHeader icon={icon} title={title} showDescription={showDescription} description={description} />
 
         <div className="content w-full flex flex-col h-full overflow-scroll">
-        {wipMode ? <WipPlaceholder /> : children}
+            {wipMode ? <WipPlaceholder /> : children}
         </div>
      </div>
     );

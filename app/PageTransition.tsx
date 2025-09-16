@@ -19,7 +19,7 @@ export default function PageTransition({ children }: PageTransitionProps) {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -8 }}
         transition={{ duration: 0.18, ease: "easeOut" }}
-        style={{ height: "100%" }}
+        style={{ height: "100%", display:"flex", flexDirection:"column", width:"100%" }}
       >
         {children}
       </motion.div>
